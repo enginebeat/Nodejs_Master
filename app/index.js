@@ -12,6 +12,33 @@ const url = require('url');
 const StringDecoder = require('string_decoder').StringDecoder;
 const config = require('./config');
 
+const _data = require('./lib/data');
+
+
+/*Testing */
+/* @TODO delete this */
+
+/*  Due to the async nature of javascript these statements 
+    may not happen in this order */
+_data.create('test', 'newFile', {'foo': 'bar'}, (err)=>{
+    console.log(`This was the error: ${err}`);
+});
+
+_data.read('test', 'newFile', (err, data)=>{
+    console.log(`This was the error: ${err} and this was the data ${data}`);
+});
+
+_data.update('test', 'newFile', {'Fizz': 'Buzz'},(err)=>{
+    console.log(`This was the error: ${err}`);
+});
+
+_data.delete('test', 'newFile',(err)=>{
+    console.log(`This was the error: ${err}`);
+});
+
+
+
+
 /* The server should respond to all requests with a string */
 var server = http.createServer((req, res)=>{
     /* Get the URL and parse it */
@@ -20,8 +47,9 @@ var server = http.createServer((req, res)=>{
     
     /* Get the path */
     var path = parsedUrl.pathname;
+    console.log(path);
     var trimmedPath = path.replace(/^\/+|\/+$/g, '');
-
+    console.log(trimmedPath);
     /* get the HTTP Method */
     var method = req.method.toLowerCase();
 
@@ -95,10 +123,16 @@ var handlers = {
 };
 
 /* Sample Handler */
-handlers.sample = function(data, callback){
+/*handlers.sample = function(data, callback){ */
 
     /* Callback a HTTP status code, and a payload object */
-    callback(406, {'name': 'sample handler'});
+/*    callback(406, {'name': 'sample handler'});
+};
+*/
+
+/* ping Handler */
+handlers.ping = function(data, callback){
+    callback(200);
 };
 
 /* Not Found Handler */
@@ -106,8 +140,10 @@ handlers.notFound = function(data, callback){
     callback(404);
 };
 /* Define a request Router */
+
 var router = {
-    'sample': handlers.sample
+    'sample': handlers.sample,
+    'ping' : handlers.ping
 };
 
 
