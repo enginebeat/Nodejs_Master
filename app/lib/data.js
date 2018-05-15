@@ -91,6 +91,19 @@ lib.update = (dir, file, data, callback)=>{
 };
 
 /* Delete a file */
+
+lib.delete = (dir, file, callback)=>{
+    /* unlink the file */
+
+    fs.unlink(lib.baseDir + dir + '/' + file + '.json', (err)=>{
+        if(!err){
+            callback(false);
+        }else{
+            callback(' Error deleting file');
+        }
+    }
+
+);
 lib.delete = (dir, file, callback)=>{
     /* unlink the file */
     fs.unlink(lib.baseDir + dir + '/' + file + '.json', (err)=>{

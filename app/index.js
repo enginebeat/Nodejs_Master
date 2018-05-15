@@ -14,31 +14,6 @@ const config = require('./config');
 
 const _data = require('./lib/data');
 
-
-/*Testing */
-/* @TODO delete this */
-
-/*  Due to the async nature of javascript these statements 
-    may not happen in this order */
-_data.create('test', 'newFile', {'foo': 'bar'}, (err)=>{
-    console.log(`This was the error: ${err}`);
-});
-
-_data.read('test', 'newFile', (err, data)=>{
-    console.log(`This was the error: ${err} and this was the data ${data}`);
-});
-
-_data.update('test', 'newFile', {'Fizz': 'Buzz'},(err)=>{
-    console.log(`This was the error: ${err}`);
-});
-
-_data.delete('test', 'newFile',(err)=>{
-    console.log(`This was the error: ${err}`);
-});
-
-
-
-
 /* The server should respond to all requests with a string */
 var server = http.createServer((req, res)=>{
     /* Get the URL and parse it */
