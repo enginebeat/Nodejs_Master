@@ -14,6 +14,16 @@ const config = require('./config');
 
 const _data = require('./lib/data');
 
+
+_data.delete('test', 'luis')
+    .then(()=>{
+        console.log('done');
+    })
+    
+    .catch((err)=>{
+        console.log('error', err);
+    })
+    
 /* The server should respond to all requests with a string */
 var server = http.createServer((req, res)=>{
     /* Get the URL and parse it */

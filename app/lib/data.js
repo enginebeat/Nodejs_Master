@@ -92,20 +92,26 @@ lib.update = (dir, file, data, callback)=>{
 
 /* Delete a file */
 
-lib.delete = (dir, file, callback)=>{
+lib.delete = (dir, file)=>{
     /* unlink the file */
-
-    fs.unlink(lib.baseDir + dir + '/' + file + '.json', (err)=>{
-        if(!err){
-            callback(false);
-        }else{
-            callback(' Error deleting file');
-        }
-    }
-
-);
+    return new Promise((resolve, reject)=>{
+        fs.unlink(lib.baseDir + dir + '/' + file + '.json', (err)=>{
+            if(!err){
+                resolve(false);
+            }else{
+                reject(err);
+            }
+        });
+    });
+};
+    
+    
+    
+    
+    
+/*
 lib.delete = (dir, file, callback)=>{
-    /* unlink the file */
+    
     fs.unlink(lib.baseDir + dir + '/' + file + '.json', (err)=>{
         if(!err){
             callback(false);
@@ -114,6 +120,7 @@ lib.delete = (dir, file, callback)=>{
         }
     })
 };
+*/
 
 /* Export Module */
 module.exports = lib;
